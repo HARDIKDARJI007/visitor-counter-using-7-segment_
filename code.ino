@@ -7,6 +7,8 @@ int pinF = 7;
 int pinG = 8;
 int D1 = 9;   //7 sengment tens digit display
 int D2 = 10;  //7 sengment units digit display
+int buzzer = 12;
+int laser = 13;
 int i = 0;
 int k = 0;
 int j = 0;
@@ -34,12 +36,15 @@ void setup() {
   pinMode(pinG, OUTPUT);
   pinMode(D1, OUTPUT);
   pinMode(D2, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(laser, OUTPUT);
   pinMode(A0, INPUT);
   Serial.begin(9600);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop() {  
+  // put your main code here, to run repeatedly: 
+    
   for (int n = 0; n < 600; n++)
   {
     for (j = 0; j < 7; j++)
@@ -57,11 +62,16 @@ void loop() {
     digitalWrite(D1, 0);
     digitalWrite(D2, 1);
     delay(1);
-
+    digitalWrite(laser,HIGH);
+    delay(10);
     if(analogRead(A0) >500)
     {Serial.println(A0);
+    digitalWrite(buzzer, HIGH);
+    delay(100);
+    digitalWrite(buzzer, LOW);
+   
       while(analogRead(A0) > 500)
-      {
+      {  
         delay(100);
       }
       i++;
@@ -73,7 +83,10 @@ void loop() {
         {
           k = 0;
         }
-      }
-    }
-  }  
+       
+      } 
+       digitalWrite(laser,LOW);
+        delay(1000);     
+    }     
+  }
 }
